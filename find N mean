@@ -13,7 +13,7 @@ for i=1:S
      psi2=R(i,2:m+1)
     H(i,i)=U*sum(psi1.*psi1)-U*sum(psi1)-mu*(sum(psi1)) % colculate diagonal elements
     for j=1:m % for not diaganal element
-       [c1,k1,c2,k2] = a_p_a_m(A,psi1,j,n_max)
+       [c1,k1,c2,k2] = creat_delete_state(A,psi1,j,n_max)
         %colculate  not diagonal elements (i,k)
        H(i,k1)=H(i,k1)-t*c1 
        H(i,k2)=H(i,k2)-t*c2
