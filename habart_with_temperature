@@ -1,0 +1,17 @@
+
+mu=[-5:0.5:8]
+mu_size=size(mu)
+N_2=zeros(1,mu_size(2))
+N_5=zeros(1,mu_size(2))
+for i=1:1:mu_size(2)
+[N_2(i)] = N_Mean(mu(i),0.2)
+[N_5(i)] = N_Mean(mu(i),0.5)
+end
+figure(1)
+xlabel("mu")
+ylabel("<N>")
+plot(mu,N_2,'b')
+hold on
+plot(mu,N_5,'r')
+
+ 
