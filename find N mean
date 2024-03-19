@@ -1,0 +1,42 @@
+
+function [N_mean] = N_Mean(mu,T)
+m=4
+n_max=2
+S= (n_max+1)^m %amount of combination
+[A]= b11(m,n_max)
+[R] =  all_spin_neibors(A)
+t=1
+U=1
+H=zeros(S,S)
+for i=1:S
+    psi1=R(i,1:m)
+     psi2=R(i,2:m+1)
+    H(i,i)=U*sum(psi1.*psi1)-U*sum(psi1)-mu*(sum(psi1)) % colculate diagonal elements
+    for j=1:m % for not diaganal element
+       [c1,k1,c2,k2] = a_p_a_m(A,psi1,j,n_max)
+        %colculate  not diagonal elements (i,k)
+       H(i,k1)=H(i,k1)-t*c1 
+       H(i,k2)=H(i,k2)-t*c2
+       
+    end 
+end 
+% N particles in alpha state
+[V,E]=eig(H)
+N=zeros(1,S)
+for g=1:1:S
+    for b=1:1:S
+        N(g)=N(g)+V(b,g)*V(b,g)*sum(A(b,:))
+    end
+end
+Z=0
+for i=1:1:S
+   Z=Z+exp(-E(i,i)/T)
+end
+
+N_mean=0
+for i=1:1:S
+    N_mean=N_mean+N(i)*exp(-E(i,i)/T)/Z
+end
+
+
+end
