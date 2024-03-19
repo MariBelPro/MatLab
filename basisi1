@@ -1,0 +1,12 @@
+function [A]= basis1(m,n_max)
+R=(n_max+1)^m;
+A=zeros(R,m);
+for i=2:1:R
+    A(i,:)=A(i-1,:)
+    o=m;
+    while A(i,o)==n_max
+        A(i,o)=0
+        o=o-1
+    end
+    A(i,o)=A(i,o)+1
+end
