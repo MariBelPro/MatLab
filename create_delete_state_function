@@ -1,0 +1,66 @@
+function [c1,k1,c2,k2] = create_delete_state(A,psi1,j,n_max)
+%first operator
+n=size(psi1)
+psi=psi1
+if j<n(2)
+c1=sqrt(psi1(j+1))
+psi(j+1)=psi1(j+1)-1
+c1=c1*sqrt(psi1(j)+1)
+psi(j)=psi1(j)+1
+
+else
+c1=sqrt(psi1(1))
+psi(1)=psi1(1)-1
+
+c1=c1*sqrt(psi1(j)+1)
+psi(j)=psi1(j)+1
+end
+n=size(psi)
+k1=1
+for i=1:1:n(2)
+    if psi(i)>n_max || psi(i)<0
+        c1=0
+    end
+end
+%find new state
+    if c1~=0 
+    phi=A(k1,:)-psi
+            while sum(phi.*phi)~=0
+            k1=k1+1
+            phi=A(k1,:)-psi
+            end
+    end
+
+
+ %second operator
+ psi=psi1
+ if j<n(2)
+c2=sqrt(psi1(j))
+psi(j)=psi1(j)-1
+c2=c2*sqrt(psi1(j+1)+1)
+psi(j+1)=psi1(j+1)+1
+
+else
+c2=sqrt(psi1(j))
+psi(j)=psi1(j)-1
+c2=c2*sqrt(psi1(1)+1)
+psi(1)=psi1(1)+1
+end
+k2=1
+for i=1:1:n(2)
+    if psi(i)>n_max || psi(i)<0
+        c2=0
+    end
+end
+%find new state
+    if c2~=0
+       
+    phi=A(k2,:)-psi
+            while sum(phi.*phi)~=0
+            k2=k2+1
+            
+            phi=A(k2,:)-psi
+            end
+    end
+
+end
