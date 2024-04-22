@@ -2,10 +2,11 @@ function [A,w_old,w_new] = make_randm_switch(M,I,A,n_max)
 
 m=mod(round(10*rand()),M)
 i=mod(round(10*rand()),I);
-[w_old] =find_probability_old(i,I,m,M,A);
 if A(neib(i,I),neib(m,M))>0 || A(neib(i+1,I),neib(m,M))>0
 ksi=rand()
 if ksi<0.5 && A(neib(i,I),neib(m+1,M))<n_max && A(neib(i+1,I),neib(m+1,M))<n_max
+% move to right 
+[w_old] =find_probability_old(i,I,m,M,A);
    A(neib(i,I),neib(m+1,M))=A(neib(i,I),neib(m+1,M))+1 ;
    A(i+1,m+1)=A(i+1,m+1)+1 ;
     A(neib(i,I),neib(m,M))=A(neib(i,I),neib(m,M))-1;
@@ -21,3 +22,4 @@ end
 end
 
 end
+[w_old] =find_probability_old(i,I,m,M,A);
